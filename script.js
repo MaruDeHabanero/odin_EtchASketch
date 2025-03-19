@@ -1,8 +1,7 @@
-let button = document.createAttribute("button");
-console.log(document.body)
+const container = document.querySelector("#container");
 
 function randomRGBValues(){
-	let colors = []
+	const colors = []
 	for (let i = 0; i < 3; i++){
 		colors.push(Math.floor(Math.random() * 255))
 	}
@@ -20,28 +19,41 @@ function addHoveringColor(block){
 function createGrid(){
 	document.body.style.margin = "0";
 
-	let mainDiv = document.querySelector("#container");
-	mainDiv.style.display = "flex";
-	mainDiv.style.height = "100vh";
+	container.style.display = "flex";
+	container.style.height = "100vh";
+	container.style.flexDirection = "column-reverse";
 
 	for (let x = 0; x < 16; x++){
-		let column = document.createElement("div");
-		column.style.flex = "1";
-		column.style.display = "flex";
-		column.style.flexDirection = "column";
+		const row = document.createElement("div");
+		row.style.flex = "1";
+		row.style.display = "flex";
+		row.style.flexDirection = "row";
 
-		column.className = "column";
+		row.className = "row";
 		for (let y = 0; y < 16; y++){
-			let block = document.createElement("div");
+			const block = document.createElement("div");
 			block.style.flex = "1";
 
 			addHoveringColor(block);
 
 			block.className = "block";
-			column.appendChild(block);
+			row.appendChild(block);
 		}
-		mainDiv.appendChild(column);
+		container.appendChild(row);
 	}
 }
 
 createGrid();
+
+const buttonContainer = document.createElement("div");
+buttonContainer.style.display = "flex";
+buttonContainer.style.justifyContent = "center";
+buttonContainer.style.padding = "10px";
+
+const button = document.createElement("button");
+button.innerText = "Change dimensions of Etch-A-Sketch"
+button.style.width = "50%";
+button.style.height = "40px";
+
+buttonContainer.appendChild(button);
+container.appendChild(buttonContainer);
